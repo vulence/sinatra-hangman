@@ -1,8 +1,9 @@
 class Hangman
-	attr_accessor :marked_word, :word, :right_choices, :wrong_choices, :fails
+	attr_accessor :marked_word, :word, :right_choices, :wrong_choices, :fails, :url
 	
 	def initialize			
 		@fails = 6
+		@url = "images/0.jpg"
 		@right_choices = ""
 		@wrong_choices = ""
 		
@@ -12,28 +13,24 @@ class Hangman
 	def play(player_guess)
 		player_guess = player_guess
 		
-		if (@fails != 1)
-			if (!player_guess.match(/^[[:alpha:]]+$/) || @right_choices.include?(player_guess) || @wrong_choices.include?(player_guess) || player_guess == "")
-				if ((@right_choices.include?(player_guess) || @wrong_choices.include?(player_guess)) && player_guess != "")
-					return [@marked_word, "You already guessed that letter"]
-				else
-					return [@marked_word, "Invalid input"]
-				end
+		if (!player_guess.match(/^[[:alpha:]]+$/) || @right_choices.include?(player_guess) || @wrong_choices.include?(player_guess) || player_guess == "")
+			if ((@right_choices.include?(player_guess) || @wrong_choices.include?(player_guess)) && player_guess != "")
+				return [@marked_word, "You already guessed that letter"]
+			else
+				return [@marked_word, "Invalid input"]
 			end
-			
-			if (!check_letters(player_guess))
-				wrong_choice(player_guess)
-				return [@marked_word]
-			end
-			
-			right_choice(player_guess)
-			replace_letters
-			
-			win?
-		
-		else
-			lose
 		end
+			
+		if (!check_letters(player_guess))
+			wrong_choice(player_guess)
+			return [@word, "You ran out of guesses!"] if (lose?)
+			return [@marked_word]
+		end
+			
+		right_choice(player_guess)
+		replace_letters
+			
+		win?
 	end
 	
 	def random_word
@@ -53,6 +50,7 @@ class Hangman
 		
 		if (!@word.include?(player_guess))
 			@fails -= 1
+			self.update_url
 			return false
 		end
 		
@@ -68,9 +66,13 @@ class Hangman
 		return [@marked_word]
 	end
 	
-	def lose
-		@fails = 0
-		return [@word, "You ran out of guesses!"]
+	def lose?
+		if (@fails == 0)
+			self.update_url
+			return true
+		end
+		
+		return false
 	end
 	
 	def wrong_choice(choice)
@@ -86,6 +88,27 @@ class Hangman
 			@right_choices += ", " + choice
 		else
 			@right_choices += choice
+		end
+	end
+	
+	def update_url
+		case @fails
+		when 6
+			@url = "images/0.jpg"
+		when 5
+			@url = "images/1.jpg"
+		when 4
+			@url = "images/2.jpg"
+		when 3
+			@url = "images/3.jpg"
+		when 2
+			@url = "images/4.jpg"
+		when 1
+			@url = "images/5.jpg"
+		when 0
+			@url = "images/6.jpg"
+		else
+			"ERROR"
 		end
 	end
 end

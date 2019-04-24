@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<link href="styles/reset.css" rel="stylesheet"/>
 	<link href="styles/main.css" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 </head>	
 <body>
 	<div id="bg-image"></div>
@@ -17,8 +18,13 @@
 				<%= yield %>
 				
 				<form action='/' method="POST" id="forma">
-					<input type="text" name="guess" maxlength="1">
-					<input type="submit" value="Guess">
+					<input type="text" name="guess" maxlength="1" id="guess_input">
+					<input type="submit" value="Guess" id="guessbtn">
+				</form>
+				
+				
+				<form action='/new' method="GET">
+					<input type="submit" value="Reset" id="reset">
 				</form>
 				
 				<p>Right choices: <%= hangman.right_choices %></p><br/>
@@ -26,7 +32,7 @@
 				
 			</div>
 			<div id="picture">
-				<img id="pic" src="images/0.jpg" alt="0"/>
+				<img id="pic" src="<%= hangman.url %>" alt="0"/>
 				<p>Guesses left: <%= hangman.fails %></p>
 			</div>
 		</div>

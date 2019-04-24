@@ -18,4 +18,8 @@ class HangmanApp < Sinatra::Base
 		
 		erb :guess, locals: {guess: choice, hangman: @@hangman}
 	end
+	
+	get '/new' do
+		redirect '/'
+	end
 end

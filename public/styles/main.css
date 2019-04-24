@@ -1,5 +1,6 @@
 html, body {
 	height: 100%;
+	font-family: 'Indie Flower', cursive;
 }
 
 header {
@@ -61,15 +62,52 @@ header {
 	flex-direction: column;
 	align-items: center;
 	font-size: 45pt;
-	
 }
 
 #pic {
-	height: 40%;
+	height: 60%;
 	width: 60%;
 	margin-bottom: 10%;
+	border-radius: 8px;
+	border: 4px solid white;
 }
 
 #forma {
-	margin-bottom: 25%; 
+	margin-bottom: 8%; 
+}
+
+#bottompad {
+	margin-bottom: 30px;
+}
+
+#reset {
+	margin-bottom: 150px;
+	font-size: 30pt;
+	border-radius: 15px;
+	background-color: #f4511e;
+	color: white;
+	padding: 5px 15px;
+	font-weight: bold;
+	transition: 0.5s;
+}
+
+#reset:hover {
+	transition: 0.5s;
+	background-color: crimson;
+	font-size: 35pt;
+}
+
+#guess_input {
+	font-size: 15pt;
+	padding: 5px 10px;
+	width: 50px;
+	border-radius: 7px;
+	border: 1px solid black;
+}
+
+#guessbtn {
+	font-size: 20pt;
+	border-radius: 15px;
+	background-color: #1a75ff;
+	color: #f2f2f2;
 }
